@@ -41,6 +41,7 @@ import { ref } from "vue";
 // Data
 const todoList = ref([]);
 const todoObject = ref({
+  id: "",
   text: "",
   from: "",
   to: "",
@@ -48,17 +49,29 @@ const todoObject = ref({
 });
 
 // Methods
+
+//  Add Todo
 const addTodo = () => {
+  todoObject.value.id = todoList.value.length + 1;
   todoObject.value.createdAt = new Date();
   todoList.value.push(todoObject.value);
+  addToLocalSt();
+  alert("Todo was Added Successfully");
   // console.log(todoList.value);
   todoObject.value = {
+    id: "",
     text: "",
     from: "",
     to: "",
     createdAt: "",
   };
 };
+
+const addToLocalSt = () => {
+  localStorage.setItem("todos", JSON.stringify(todoList.value));
+};
+
+// Set to Local Storage
 </script>
 
 <style scoped lang="scss">
