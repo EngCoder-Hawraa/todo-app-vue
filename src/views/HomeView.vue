@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 // Data
 const todoList = ref([]);
@@ -46,6 +46,7 @@ const todoObject = ref({
   from: "",
   to: "",
   createdAt: "",
+  isCompleted: false,
 });
 
 // Methods
@@ -64,9 +65,23 @@ const addTodo = () => {
     from: "",
     to: "",
     createdAt: "",
+    isCompleted: false,
   };
 };
 
+// Update Todos List
+const updateTodos = () => {
+  if (localStorage.getItem("todos")) {
+    todoList.value = JSON.parse(localStorage.getItem("todos"));
+  }
+};
+
+// Hooks
+onMounted(() => {
+  updateTodos();
+});
+
+// Set to Local Storage
 const addToLocalSt = () => {
   localStorage.setItem("todos", JSON.stringify(todoList.value));
 };
