@@ -13,7 +13,7 @@ const todosFunction = () => {
     if (localStorage.getItem("todos")) {
       todosList.value = JSON.parse(localStorage.getItem("todos"));
     }
-    console.log(todosList.value);
+    // console.log(todosList.value);
   };
   onMounted(() => {
     UpdateTodos();
@@ -22,4 +22,4 @@ const todosFunction = () => {
   return { todosList, addToLocalSt };
 };
 
-export default todosFunction();
+export default todosFunction;

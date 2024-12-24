@@ -36,10 +36,11 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
+import todosMixins from "@/mixins/todo";
 
+const { todosList, addToLocalSt } = todosMixins();
 // Data
-const todoList = ref([]);
 const todoObject = ref({
   id: "",
   text: "",
@@ -53,10 +54,12 @@ const todoObject = ref({
 
 //  Add Todo
 const addTodo = () => {
-  todoObject.value.id = todoList.value.length + 1;
+  todoObject.value.id = todosList.value.length + 1;
   todoObject.value.createdAt = new Date();
-  todoList.value.push(todoObject.value);
+  todosList.value.push(todoObject.value);
+
   addToLocalSt();
+
   alert("Todo was Added Successfully");
   // console.log(todoList.value);
   todoObject.value = {
@@ -68,25 +71,6 @@ const addTodo = () => {
     isCompleted: false,
   };
 };
-
-// Update Todos List
-const updateTodos = () => {
-  if (localStorage.getItem("todos")) {
-    todoList.value = JSON.parse(localStorage.getItem("todos"));
-  }
-};
-
-// Hooks
-onMounted(() => {
-  updateTodos();
-});
-
-// Set to Local Storage
-const addToLocalSt = () => {
-  localStorage.setItem("todos", JSON.stringify(todoList.value));
-};
-
-// Set to Local Storage
 </script>
 
 <style scoped lang="scss">
